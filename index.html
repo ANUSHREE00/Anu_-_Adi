@@ -1165,6 +1165,9 @@ function playMusic() {
 weddingMusic.addEventListener('playing', updateMusicButton);
 weddingMusic.addEventListener('pause', updateMusicButton);
 weddingMusic.addEventListener('error', updateMusicButton);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) weddingMusic.pause();
+});
 musicButton.addEventListener('click', () => {
   if (weddingMusic.paused) playMusic();
   else weddingMusic.pause();
