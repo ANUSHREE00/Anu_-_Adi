@@ -1165,8 +1165,15 @@ function playMusic() {
 weddingMusic.addEventListener('playing', updateMusicButton);
 weddingMusic.addEventListener('pause', updateMusicButton);
 weddingMusic.addEventListener('error', updateMusicButton);
+let resumeMusicWhenVisible = false;
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) weddingMusic.pause();
+  if (document.hidden) {
+    resumeMusicWhenVisible = !weddingMusic.paused;
+    if (resumeMusicWhenVisible) weddingMusic.pause();
+  } else if (resumeMusicWhenVisible) {
+    resumeMusicWhenVisible = false;
+    playMusic();
+  }
 });
 musicButton.addEventListener('click', () => {
   if (weddingMusic.paused) playMusic();
